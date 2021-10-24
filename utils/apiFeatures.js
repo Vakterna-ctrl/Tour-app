@@ -15,7 +15,6 @@ class APIFeatures {
     console.log(queryStr);
 
     this.query = this.query.find(JSON.parse(queryStr));
-    // let query = Tour.find(JSON.parse(queryStr));
     return this;
   }
 
