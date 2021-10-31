@@ -22,7 +22,7 @@ mongoose
 
 // Read json file
 
-const tours = fs.readFileSync(`${__dirname}/tours-simple.json`, 'utf-8');
+const tours = fs.readFileSync(`${__dirname}/tours.json`, 'utf-8');
 console.log(tours);
 // IMPORT DATA INTO DB
 const importData = async () => {
