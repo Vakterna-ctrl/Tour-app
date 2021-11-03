@@ -33,6 +33,7 @@ const reviewSchema = new mongoose.Schema(
   }
 );
 
+// Only allow one post per user in a toue
 reviewSchema.pre(/^find/, function(next) {
   //   this.populate({
   //     path: 'tour',
@@ -62,15 +63,27 @@ reviewSchema.statics.calcAverageRatings = async function(tourId) {
   ]);
   console.log(stats, 'stats');
 
-  await Tour.findByIdAndUpdate(tourId, {
-    ratingsQuantity: stats[0].nRating,
-    ratingsAverage: stats[0].avgRating
-  });
+  if (stats.length > 0) {
+    await Tour.findByIdAndUpdate(tourId, {
+      ratingsQuantity: stats[0].nRating,
+      ratingsAverage: stats[0].avgRating
+    });
+  } else {
+    await Tour.findByIdAndUpdate(tourId, {
+      ratingsQuantity: 0,
+      ratingsAverage: 4.5
+    });
+  }
 };
 
 reviewSchema.post('save', function(next) {
-  // this points to current reviewW
+  // this points to current review
   this.constructor.calcAverageRatings(this.tour);
+});
+
+// post query middleware returns current document and constructor points towards the Model
+reviewSchema.post(/^findOneAnd/, async function(docs) {
+  await docs.constructor.calcAverageRatings(docs.tour);
 });
 
 const Review = mongoose.model('Review', reviewSchema);
