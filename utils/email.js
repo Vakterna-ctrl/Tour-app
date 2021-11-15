@@ -11,8 +11,16 @@ module.exports = class Email {
   }
 
   newTransport() {
+    console.log(process.env.SENDINBLUE_USERNAME, 'username');
+    console.log(process.env.SENDINBLUE_PASSWORD, 'password');
     if (process.env.NODE_ENV === 'production') {
-      return 1;
+      return nodemailer.createTransport({
+        service: 'SendinBlue',
+        auth: {
+          user: process.env.SENDINBLUE_USERNAME,
+          pass: process.env.SENDINBLUE_PASSWORD
+        }
+      });
     }
 
     return nodemailer.createTransport({
@@ -38,7 +46,10 @@ module.exports = class Email {
 
     // 2) Define email options
     const mailOptions = {
-      from: this.from,
+      from:
+        process.env.NODE_ENV === 'production'
+          ? this.from
+          : process.env.SENDINBLUE_USERNAME,
       to: this.to,
       subject,
       html,

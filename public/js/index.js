@@ -3,6 +3,7 @@ import '@babel/polyfill';
 import { displayMap } from './mapbox';
 import { login, logout } from './login';
 import { updateSettings } from './updateSettings';
+import { booktour } from './stripe';
 
 // DOM ELEMENTS
 const mapBox = document.getElementById('map');
@@ -10,6 +11,7 @@ const loginForm = document.querySelector('.form--login');
 const logOutBtn = document.querySelector('.nav__el--logout');
 const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
+const book
 // Values
 console.log(loginForm);
 // DELEGATION
@@ -35,15 +37,16 @@ if (logOutBtn) logOutBtn.addEventListener('click', logout);
 if (userDataForm)
   userDataForm.addEventListener('submit', async e => {
     e.preventDefault();
-    const form = new FormData()
-    form.append('name',  document.getElementById('name').value)
-    form.append('email', document.getElementById('email').value)
-    form.append('photo', document.getElementById('photo').files[0])
-    console.log(form, 'form')
+    const form = new FormData();
+    form.append('name', document.getElementById('name').value);
+    form.append('email', document.getElementById('email').value);
+    form.append('photo', document.getElementById('photo').files[0]);
+    console.log(form, 'form');
 
     document.querySelector('.btn--save-settings').textContent = 'Updating...';
     await updateSettings(form, 'data');
-    document.querySelector('.btn--save-settings').textContent = 'Save Setting...';
+    document.querySelector('.btn--save-settings').textContent =
+      'Save Setting...';
   });
 
 if (userPasswordForm)
