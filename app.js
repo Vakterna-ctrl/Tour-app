@@ -21,7 +21,7 @@ const app = express();
 
 app.enable('trust proxy');
 
-app.app.set('view engine', 'pug');
+app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 // 1) GLOBAL MIDDLEWARES
 // Serving static files
