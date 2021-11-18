@@ -39,4 +39,9 @@ process.on('unhandledRejection', err => {
   });
 });
 
-// Handling Uncaught exception
+process.on('SIGTERM', () => {
+  console.log('SIGTERM RECEIVED. Shutting down gracefully');
+  server.close(() => {
+    console.log('Process terminated');
+  });
+});
