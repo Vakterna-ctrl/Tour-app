@@ -68,7 +68,6 @@ userSchema.pre('save', function(next) {
 userSchema.pre(/^find/, function(next) {
   // this points to the current query
   this.find({ active: { $ne: false } });
-  console.log('hej');
   next();
 });
 
@@ -86,7 +85,6 @@ userSchema.methods.changedPasswordAfter = function(JWTTimesstamp) {
       this.passwordChangedAt.getTime() / 1000,
       10
     );
-    console.log(this.passwordChangedAt, JWTTimesstamp);
     return JWTTimesstamp < changedTimesstamp;
   }
   return false;
@@ -99,8 +97,6 @@ userSchema.methods.createPasswordResetToken = function() {
     .createHash('sha256')
     .update(resetToken)
     .digest('hex');
-
-  console.log({ resetToken }, this.passwordResetToken);
 
   this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
 

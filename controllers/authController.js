@@ -62,7 +62,6 @@ exports.login = catchAsync(async (req, res, next) => {
   }
   // 2) check if user exist and password is correct
   const user = await User.findOne({ email }).select('+password');
-  console.log(user);
   if (!user || !(await user.correctPassword(password, user.password))) {
     return next(new AppError('Incorrect email or password', 401));
   }
@@ -90,8 +89,6 @@ exports.protect = catchAsync(async (req, res, next) => {
     token = req.cookies.jwt;
   }
 
-  console.log(token);
-
   if (!token) {
     return next(
       new AppError('You are not logged in! Please log in to access', 401)
@@ -103,7 +100,6 @@ exports.protect = catchAsync(async (req, res, next) => {
   // 3) Check if user still exists
 
   const currentUser = await User.findById(decoded.id);
-  console.log(currentUser, 'lol');
   if (!currentUser) {
     return next(
       new AppError('The user belonging to this token does no longer exist', 401)
@@ -190,7 +186,6 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
       message: 'Token sent to email'
     });
   } catch (err) {
-    console.log(err);
     user.passwordResetToken = undefined;
     user.passwordResetExpires = undefined;
     await user.save({ validateBeforeSave: false });

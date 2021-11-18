@@ -7,7 +7,6 @@ const handleCastErrorDB = err => {
 
 const handleDuplicateFieldsErrorDB = err => {
   const value = Object.values(err.keyValue)[0];
-  console.log(value);
   const message = `Duplicate field value ${value}. Please use another value`;
   return new AppError(message, 400);
 };
@@ -15,7 +14,6 @@ const handleDuplicateFieldsErrorDB = err => {
 const handleValidationErrorDB = err => {
   const errors = Object.values(err.errors).map(el => el.message);
   const message = `Invalid input data. ${errors.join('. ')}`;
-  console.log(err.errors);
   return new AppError(message, 400);
 };
 
