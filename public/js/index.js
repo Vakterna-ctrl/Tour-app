@@ -4,7 +4,7 @@ import { displayMap } from './mapbox';
 import { login, logout, signUp } from './login';
 import { updateSettings } from './updateSettings';
 import { bookTour } from './stripe';
-
+import { showAlert } from './alerts';
 // DOM ELEMENTS
 const mapBox = document.getElementById('map');
 const loginForm = document.querySelector('.form--login');
@@ -64,13 +64,16 @@ if (userPasswordForm) {
     document.getElementById('password').value = '';
     document.getElementById('password-confirm').value = '';
   });
+}
 
-  if (bookBtn)
-    bookBtn.addEventListener('click', e => {
-      e.target.textContent = 'Processing...';
-      const { tourId } = e.target.dataset;
-      bookTour(tourId);
-    });
+if (bookBtn) {
+  bookBtn.addEventListener('click', e => {
+    console.log('lol');
+
+    e.target.textContent = 'Processing...';
+    const { tourId } = e.target.dataset;
+    bookTour(tourId);
+  });
 }
 
 if (signUpForm) {
@@ -83,3 +86,6 @@ if (signUpForm) {
     signUp(name, email, password, passwordConfirm);
   });
 }
+
+const alertMessage = document.querySelector('body').dataset.alert;
+if (alertMessage) showAlert('success', alertMessage, 20);
