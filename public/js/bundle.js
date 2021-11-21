@@ -9055,33 +9055,32 @@ var bookTour = /*#__PURE__*/function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            console.log('hi');
-            _context.prev = 1;
-            _context.next = 4;
+            _context.prev = 0;
+            _context.next = 3;
             return (0, _axios.default)("/api/v1/bookings/checkout-session/".concat(tourId));
 
-          case 4:
+          case 3:
             session = _context.sent;
-            _context.next = 7;
+            _context.next = 6;
             return stripe.redirectToCheckout({
               sessionId: session.data.session.id
             });
 
-          case 7:
-            _context.next = 12;
+          case 6:
+            _context.next = 11;
             break;
 
-          case 9:
-            _context.prev = 9;
-            _context.t0 = _context["catch"](1);
+          case 8:
+            _context.prev = 8;
+            _context.t0 = _context["catch"](0);
             (0, _alerts.showAlert)('error', _context.t0);
 
-          case 12:
+          case 11:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[1, 9]]);
+    }, _callee, null, [[0, 8]]);
   }));
 
   return function bookTour(_x) {
