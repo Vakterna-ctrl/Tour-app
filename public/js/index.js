@@ -64,13 +64,16 @@ if (userPasswordForm) {
     document.getElementById('password').value = '';
     document.getElementById('password-confirm').value = '';
   });
+}
 
-  if (bookBtn)
-    bookBtn.addEventListener('click', e => {
-      e.target.textContent = 'Processing...';
-      const { tourId } = e.target.dataset;
-      bookTour(tourId);
-    });
+if (bookBtn) {
+  bookBtn.addEventListener('click', e => {
+    console.log('lol');
+
+    e.target.textContent = 'Processing...';
+    const { tourId } = e.target.dataset;
+    bookTour(tourId);
+  });
 }
 
 if (signUpForm) {
