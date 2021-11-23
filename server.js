@@ -41,6 +41,7 @@ process.on('unhandledRejection', err => {
   });
 });
 
+// Heroku shuts down the app once every 24 hours with the event 'SIGTERM'. This async function prevents sudden cancellation of request and responses
 process.on('SIGTERM', () => {
   console.log('SIGTERM RECEIVED, shutting down gracefully');
   server.close(() => {
